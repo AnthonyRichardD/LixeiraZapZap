@@ -1,21 +1,40 @@
-const mqtt = require('mqtt');
+import mqtt from 'mqtt'
+import { devices } from './device.js';
 
-// Conectando ao broker MQTT
-const client = mqtt.connect('mqtt://localhost');
+const client = mqtt.connect('mqtt://localhost'); // Conectando ao broker MQTT
 
-// Lidando com a conexão estabelecida
+
 client.on('connect', () => {
   console.log('Conectado ao broker MQTT');
-  let lastMassage = 0
   // Publicando uma mensagem a cada 10 segundo
-  setInterval(() => {
-    lastMassage++
-    const message = lastMassage.toString();
-    
-    client.publish('sensor1/message', message);
-    client.publish('sensor2/message', message);
-    console.log('Mensagem publicada:', message);
-  }, 10000);
+
+  const interval = setInterval(() => {
+    let lixeiraDisponivel = true
+    devices.forEach((device)=>{
+      const lixo = Math.floor(Math.random() * 5) + 1;
+      
+      device.volume -= lixo;
+
+      if (device.volume < 10) {
+        device.volume = 10;
+      }
+
+      const message = JSON.stringify(device);
+      client.publish(`Devices/${device.topic}`,message);
+      console.log(`\n Device MAC: ${device.MAC} \n Mensagem enviada: ${message}`)
+
+      if (device.volume !== 10) {
+        lixeiraDisponivel = false;
+      }
+
+    });
+
+    if (lixeiraDisponivel) {
+      console.log("lixeiras Bloqueadas")
+      clearInterval(interval);
+    }
+
+  }, 5000);
 });
 
 // Lidando com a desconexão

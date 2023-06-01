@@ -1,12 +1,10 @@
-const mqtt = require('mqtt');
-
-// Conectando ao broker MQTT
+import mqtt from 'mqtt';
+import { setDeviceData, getDevice } from './dataBase.js';
 const client = mqtt.connect('mqtt://localhost'); // Substitua 'localhost' pelo endereço do seu broker MQTT, se necessário
-    const topics = ['sensor1/message','sensor2/message']
-// Lidando com a conexão estabelecida
+const topics = ['Devices/Device1','Devices/Device2']
+
 client.on('connect', () => {
   console.log('Conectado ao broker MQTT');
-
   client.subscribe(topics, (err) => {
     if (err) {
       console.error('Erro ao se inscrever no tópico:', err);
@@ -14,13 +12,13 @@ client.on('connect', () => {
       console.log('Inscrito no tópico');
     }
   });
-
 });
 
-// Lidando com a chegada de mensagens
+// chegada de mensagens
 client.on('message', (topic, message) => {
-  console.log(`Nova mensagem recebida no topico ${topic}`);
-  console.log('Mensagem:', message.toString());
+  //console.log(`Mensagem no topico [${topic}]: ${message}`);
+  console.log(JSON.parse(message))
+  setDeviceData(JSON.parse(message))
 });
 
 // Lidando com a desconexão
