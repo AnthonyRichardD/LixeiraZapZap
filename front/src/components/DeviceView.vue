@@ -1,11 +1,11 @@
 <script setup>
-import {initializeApp} from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getFirestore, onSnapshot, collection, doc } from "firebase/firestore";
 import { reactive, ref } from 'vue';
-
+import { TrashIcon } from '@heroicons/vue/24/outline';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAzgf2lG84oqYkh2oqhuqn7s-M9YB1chiE",
+  apiKey: "AIzaSyAzgf2lG84oqYkh2oqhuqn7s-M9YB1chiE",
   authDomain: "my-first-project-29ac4.firebaseapp.com",
   projectId: "my-first-project-29ac4",
   storageBucket: "my-first-project-29ac4.appspot.com",
@@ -21,32 +21,37 @@ const db = getFirestore(firebaseApp);
 const deviceCollection = collection(db, 'Devices');
 let devices = ref([]);
 onSnapshot(deviceCollection, (deviceSnapshot) => {
-    devices.value = []
-    deviceSnapshot.docs.forEach(device => devices.value.push(device.data()));
+  devices.value = deviceSnapshot.docs.map(doc => doc.data());
+
 });
 
 
 </script>
 
 <template>
-    <div class="content-wrapper">
-        <h1>Device</h1>
-        <div class="device-wrapper">
-            <div v-for="device in devices">
-                <h3>Device: {{device.MAC}}</h3>
-                <p>Volume: {{ device.volume }}</p>
-            </div>
-        </div>
+  <div class="device-wrapper" v-for="device in devices">
+    <div>
+      <TrashIcon class="icon" />
     </div>
-
+    <div>
+      <h3>Device: {{ device.MAC }}</h3>
+      <p>Volume: {{ device.volume }}</p>
+    </div>
+  </div>
 </template>
 
 
 <style scoped>
-    div.content-wrapper{
-        width: 100%;
-        height: 100%;
-    }
+div.device-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  border: 1px solid;
+  height: 25%;
+}
 
-
+.icon {
+  width: 10em;
+}
 </style>
