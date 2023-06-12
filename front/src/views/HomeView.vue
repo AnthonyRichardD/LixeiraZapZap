@@ -1,12 +1,11 @@
 <script setup>
-import DeviceView from '../components/DeviceView.vue';
 
 </script>
 
 <template>
-    <DeviceView />
+  <h1>home</h1>
 </template>
 
-<style>
-
+<style scoped>
+  
 </style>

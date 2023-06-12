@@ -1,56 +1,30 @@
 <script setup>
 import { RouterView } from 'vue-router'
-/* 
-export default {
-  data() {
-    return {
-      deviceList: null,
-      loading: false,
-    };
-  },
-  methods: {
-    updateDevice() {
-      const deviceCollection = collection(db, 'Devices');
-      onSnapshot(deviceCollection, (deviceSnapshot) => {        
-        this.deviceList = deviceSnapshot.docs.map(doc => doc.data());
-        console.log(this.deviceList);
-      });
-    },
-  },
-}; */
+import SideMenu from './components/SideMenu.vue';
+import oHeader from './components/Oheader.vue';
 </script>
 
 <template>
   <div class="container">
-<!--     <div class="text">
-    <h1>Acompanhe o progresso da sua lixeira</h1>
-    <button @click="updateDevice()" class="descarte-btn">Acompanhar</button>
-    <div>
-      <p v-if="deviceList">
-        <ul>
-          <li v-for="device in deviceList" :key="device.topic">
-            <span>{{ device.topic }}:</span> {{ device.volume }}
-          </li>
-        </ul>
-      </p>
-      <p v-else></p>
-    </div>
-    </div> -->
-  <DeviceView /> 
-  <RouterView></RouterView> 
-  </div> 
+    <!-- <oHeader /> -->
+    <SideMenu />
+
+    <RouterView></RouterView>
+  </div>
 </template>
 
 <style scoped>
-html, body {
+html,
+body {
   height: 100%;
 }
 
 .container {
   height: 100%;
+  margin-left: 15%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background-color: #eeeeee;
 }
 
 .text {

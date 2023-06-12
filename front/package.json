@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.18",
     "firebase": "^9.22.1",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
