@@ -1,6 +1,6 @@
 import mqtt from 'mqtt';
 import { setDeviceData, getDevice } from './dataBase.js';
-const client = mqtt.connect('mqtt://localhost'); // Substitua 'localhost' pelo endereço do seu broker MQTT, se necessário
+const client = mqtt.connect('https://broker.hivemq.com:1883'); // Substitua 'localhost' pelo endereço do seu broker MQTT, se necessário
 const topics = ['Devices/Device1','Devices/Device2']
 
 client.on('connect', () => {

@@ -1,7 +1,7 @@
 import mqtt from 'mqtt'
 import { devices } from './device.js';
 
-const client = mqtt.connect('mqtt://localhost'); // Conectando ao broker MQTT
+const client = mqtt.connect('mhttps://broker.hivemq.com:1883'); // Conectando ao broker MQTT
 
 
 client.on('connect', () => {
