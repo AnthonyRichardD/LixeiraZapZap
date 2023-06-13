@@ -1,7 +1,7 @@
 <script setup>
 import { initializeApp } from 'firebase/app';
 import { getFirestore, onSnapshot, collection, doc } from "firebase/firestore";
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import { TrashIcon } from '@heroicons/vue/24/outline';
 
 const firebaseConfig = {
@@ -25,17 +25,32 @@ onSnapshot(deviceCollection, (deviceSnapshot) => {
 
 });
 
-
+const getTrashColor = (device) => {
+  if (device) {
+    const volume = device.volume;
+    const color = ref("");
+    if (volume > 75) {
+      color.value = 'green';
+    }else if (volume > 50){
+      color.value = 'yellow';
+    }else if (volume > 25){
+      color.value = 'orange';
+    }else{
+      color.value = 'red';
+    }
+    return color.value
+  }
+}
 </script>
 
 <template>
   <div class="device-wrapper" v-for="device in devices">
     <div>
-      <TrashIcon class="icon" />
+      <TrashIcon :style="{color: getTrashColor(device)}" class="icon" />
     </div>
     <div>
-      <h3>Device: {{ device.MAC }}</h3>
-      <p>Volume: {{ device.volume }}</p>
+      <h1>{{ device.MAC }}</h1>
+      <h2>Capacidade: {{ device.volume }}</h2>
     </div>
   </div>
 </template>
@@ -46,12 +61,15 @@ div.device-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  border: 1px solid;
-  height: 25%;
+  width: 50%;
+  height: 30%;
+  border-radius: 0.5em;
+  box-shadow: #1a262b 0px 0px 8px;
+  background: #e0e0e0;
 }
 
 .icon {
   width: 10em;
 }
+
 </style>

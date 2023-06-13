@@ -8,8 +8,9 @@ import oHeader from './components/Oheader.vue';
   <div class="container">
     <!-- <oHeader /> -->
     <SideMenu />
-
-    <RouterView></RouterView>
+    <div class="content">
+      <RouterView></RouterView>
+    </div>
   </div>
 </template>
 
@@ -24,28 +25,12 @@ body {
   margin-left: 15%;
   display: flex;
   flex-direction: column;
-  background-color: #eeeeee;
+  background-color: #dddddd;
 }
-
-.text {
+.content{
+  width: 100%;
   height: 100%;
-  text-align: center;
-  gap: 3em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.descarte-btn {
-  width: 80%;
-  padding: 0.6em;
-  border: none;
-  border-radius: 20px;
-  font-size: 1em;
-  color: white;
-  background-color: #23DE45;
-  font-weight: bold;
+  padding: 1em;
 }
 
 h1 {

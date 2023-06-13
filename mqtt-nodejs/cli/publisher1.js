@@ -9,7 +9,6 @@ client.on('connect', () => {
   // Publicando uma mensagem a cada 10 segundo
 
   const interval = setInterval(() => {
-    let lixeiraDisponivel = true
     devices.forEach((device)=>{
       const lixo = Math.floor(Math.random() * 5) + 1;
       
@@ -23,16 +22,10 @@ client.on('connect', () => {
       client.publish(`Devices/${device.topic}`,message);
       console.log(`\n Device MAC: ${device.MAC} \n Mensagem enviada: ${message}`)
 
-      if (device.volume !== 10) {
-        lixeiraDisponivel = false;
+      if (device.volume == 10) {
+        device.volume = 100 / Math.floor(Math.random()* (3-1) + 1)
       }
-
     });
-
-    if (lixeiraDisponivel) {
-      console.log("lixeiras Bloqueadas")
-      clearInterval(interval);
-    }
 
   }, 5000);
 });

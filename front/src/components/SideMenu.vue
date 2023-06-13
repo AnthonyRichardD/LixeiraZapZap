@@ -1,62 +1,90 @@
 <script setup>
   import {TrashIcon, HomeIcon,QuestionMarkCircleIcon} from '@heroicons/vue/24/outline'
+  import {RouterLink} from 'vue-router'
+  import router from '../router'
+  import { ref } from 'vue';
+  function setCurrentNav(option){
+    currentNav.value = option
+  }
+  const currentNav = ref("/")
 </script>
 
 <template>
   <div class="sidebar">
     <div class="title">
       <abbr title="Nome BY chatGPT"><h2>LixeiraZapZap</h2></abbr>
-      
     </div>
-    <ul>
-      <li><HomeIcon class="nav-icon"/>Home</li>
-      <li><TrashIcon class="nav-icon" />Lixeiras</li>
-      <li><QuestionMarkCircleIcon class="nav-icon" />Sla</li>
-      <li><QuestionMarkCircleIcon class="nav-icon" />Sla</li>
-    </ul>
+    <nav>
+      <RouterLink  to="/" @click="setCurrentNav('/')" :class="[currentNav == '/' ? 'selected' : '']">
+        <HomeIcon class="nav-icon"/>
+        <span>Home</span>
+      </RouterLink>
+      <RouterLink to="/lixeiras" @click="setCurrentNav('/lixeiras')" :class="[currentNav == '/lixeiras' ? 'selected' : '']">
+        <TrashIcon class="nav-icon" />
+        <span>Lixeiras</span>
+      </RouterLink>
+      <RouterLink to="?">
+        <QuestionMarkCircleIcon class="nav-icon" />
+        <span>Sei la</span>
+      </RouterLink>
+      <RouterLink to="?">
+        <QuestionMarkCircleIcon class="nav-icon" />
+        <span>Sei la</span>
+      </RouterLink>
+      <RouterLink to="?">
+        <QuestionMarkCircleIcon class="nav-icon" />
+        <span>Sei la</span>
+      </RouterLink>
+    </nav>
   </div>
 </template>
 
 <style scoped>
 abbr{
   text-decoration: none;
-
 }
 .title{
   cursor: default;
   color: #ffffff;
   text-align: center;
-  margin-bottom: 1em;
+  border-bottom: #0a171cbd 1px solid;
+  padding: 1em 0;
 }
 .sidebar {
+  box-shadow: #1a262b -1px -2px 10px;
   background-color: #1a262b;
   width: 15%;
-  color: #a4a9ab;
   height: 100%;
   position: fixed;
   left: 0;
 }
 .nav-icon{
-  margin-left: 0.5em;
+  margin-left: 1em;
   width: 2em;
 }
 
-ul{
+nav{
   width: 100%;
   height: 100%;
 }
 
-li{
+a{
+  height: 8%;
+  text-decoration: none;
   display: flex;
-  border-top: #0a171c 2px solid;
-  align-items: flex-end;
-  width: 100%;
-  height: 5%;
   gap: 0.5em;
+  border-top: #0a171c 1px solid;
+  border-bottom: #0a171cbd 1px solid;
+  align-items: center;
+  width: 100%;
   cursor: pointer;
-  margin-bottom: 1em;
+  color: #a4a9ab;
 }
-li:hover{
+a:hover{
+  color: #ffffff;
+}
+
+.selected{
   color: #ffffff;
 }
 </style>
