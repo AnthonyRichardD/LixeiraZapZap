@@ -1,7 +1,7 @@
 <script setup>
 import { initializeApp } from 'firebase/app';
 import { getFirestore, onSnapshot, collection, doc } from "firebase/firestore";
-import { reactive, ref, computed } from 'vue';
+import { ref} from 'vue';
 import { TrashIcon } from '@heroicons/vue/24/outline';
 
 const firebaseConfig = {
@@ -15,10 +15,9 @@ const firebaseConfig = {
 }
 
 const firebaseApp = initializeApp(firebaseConfig);
-
 const db = getFirestore(firebaseApp);
-
 const deviceCollection = collection(db, 'Devices');
+
 let devices = ref([]);
 onSnapshot(deviceCollection, (deviceSnapshot) => {
   devices.value = deviceSnapshot.docs.map(doc => doc.data());
@@ -44,12 +43,12 @@ const getTrashColor = (device) => {
 </script>
 
 <template>
-  <div class="device-wrapper" v-for="device in devices">
+  <div class="device-wrapper" v-for="device in devices" @click="$router.push(`lixeira/${device.topic}`)">
     <div>
       <TrashIcon :style="{color: getTrashColor(device)}" class="icon" />
     </div>
     <div>
-      <h1>{{ device.MAC }}</h1>
+      <h1>Local: {{ device.local }}</h1>
       <h2>Capacidade: {{ device.volume }}</h2>
     </div>
   </div>
@@ -58,6 +57,7 @@ const getTrashColor = (device) => {
 
 <style scoped>
 div.device-wrapper {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

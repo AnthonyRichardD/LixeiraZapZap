@@ -1,12 +1,10 @@
 <script setup>
   import {TrashIcon, HomeIcon,QuestionMarkCircleIcon} from '@heroicons/vue/24/outline'
   import {RouterLink} from 'vue-router'
+  import {setCurrentNav, currentNav} from '../assets/stores'
   import router from '../router'
-  import { ref } from 'vue';
-  function setCurrentNav(option){
-    currentNav.value = option
-  }
-  const currentNav = ref("/")
+
+
 </script>
 
 <template>
@@ -49,6 +47,7 @@ abbr{
   text-align: center;
   border-bottom: #0a171cbd 1px solid;
   padding: 1em 0;
+  background: linear-gradient(-70deg, #9B5DE5, #FF847C);
 }
 .sidebar {
   box-shadow: #1a262b -1px -2px 10px;

@@ -14,8 +14,11 @@ const router = createRouter({
       name: 'lixeiras',
       component: () => import('../views/LixeirasView.vue')
     },
-    
-
+    {
+      path: '/lixeira/:id',
+      name: 'lixeira',
+      component: () => import('../views/DeviceView.vue')
+    }
   ]
 })
 
