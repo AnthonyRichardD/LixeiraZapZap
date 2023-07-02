@@ -9,7 +9,7 @@ import {setCurrentNav, currentNav} from '../assets/stores'
 <template>
   <div class="content">
     <div class="mobile">
-      <img src="../assets/phone2.png" alt="telefone kkk" class="icon">
+      <img src="../assets/phonet.png" alt="telefone kkk" class="icon">
     </div>
     <div class="text">
       <div class="title">
@@ -39,7 +39,7 @@ div.btn{
 
 .gradient-text {
   background: linear-gradient(to right, #9B5DE5, #FF847C);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

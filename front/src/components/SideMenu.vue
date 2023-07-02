@@ -21,18 +21,6 @@
         <TrashIcon class="nav-icon" />
         <span>Lixeiras</span>
       </RouterLink>
-      <RouterLink to="?">
-        <QuestionMarkCircleIcon class="nav-icon" />
-        <span>Sei la</span>
-      </RouterLink>
-      <RouterLink to="?">
-        <QuestionMarkCircleIcon class="nav-icon" />
-        <span>Sei la</span>
-      </RouterLink>
-      <RouterLink to="?">
-        <QuestionMarkCircleIcon class="nav-icon" />
-        <span>Sei la</span>
-      </RouterLink>
     </nav>
   </div>
 </template>

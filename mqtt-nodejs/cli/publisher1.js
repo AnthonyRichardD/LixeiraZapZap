@@ -19,16 +19,17 @@ client.on('connect', () => {
       device.horario = `${hora}:${min}:${sec}`
       device.volume -= lixo;
 
-      if (device.volume < 6) {
-        device.volume = 6;
-      }
-
-      const message = JSON.stringify(device);
-      client.publish(`Devices/${device.topic}`,message);
-      console.log(`\n Device MAC: ${device.MAC} \n Mensagem enviada: ${message}`)
-
-      if (device.volume <= 6) {
+      
+      if (device.volume <= 10) {
+        device.volume = 10
+        const message = JSON.stringify(device);
+        client.publish(`Devices/${device.topic}`,message);
         device.volume = 100
+        console.log(`\n Device MAC: ${device.MAC} \n Mensagem enviada: ${message}`)
+      }else{
+        const message = JSON.stringify(device);
+        client.publish(`Devices/${device.topic}`,message);
+        console.log(`\n Device MAC: ${device.MAC} \n Mensagem enviada: ${message}`)
       }
     });
 

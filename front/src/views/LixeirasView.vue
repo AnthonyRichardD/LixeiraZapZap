@@ -12,15 +12,21 @@
 </template>
 
 <style scoped>
+  h1{
+    color: #1a262b;
+    font-size: 3em;
+    margin-bottom: 2%;
+    text-align: center;
+  }
   div.content{
-    color:#1a262b;
     width: 100%;
     height: 100%;
   }
   div.devices-wrapper{
-    display: flex;
-    gap: 1em;
-    margin-top: 2em;
+    display: grid;
+    place-items: center;
+    gap: 2em;
+    grid-template-columns: repeat(2,auto);
   }
 
 </style>

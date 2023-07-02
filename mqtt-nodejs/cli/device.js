@@ -1,4 +1,3 @@
-
 export let devices = [
   {
     MAC: '00:1B:C9:4B:E3:57',

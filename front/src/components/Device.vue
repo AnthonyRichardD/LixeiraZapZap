@@ -28,11 +28,9 @@ const getTrashColor = (device) => {
   if (device) {
     const volume = device.volume;
     const color = ref("");
-    if (volume > 75) {
+    if (volume > 75 ) {
       color.value = 'green';
-    }else if (volume > 50){
-      color.value = 'yellow';
-    }else if (volume > 25){
+    }else if (volume < 50 && volume != 10 ){
       color.value = 'orange';
     }else{
       color.value = 'red';
@@ -48,8 +46,7 @@ const getTrashColor = (device) => {
       <TrashIcon :style="{color: getTrashColor(device)}" class="icon" />
     </div>
     <div>
-      <h1>Local: {{ device.local }}</h1>
-      <h2>Capacidade: {{ device.volume }}</h2>
+      <h1> {{ device.local }}</h1>
     </div>
   </div>
 </template>
@@ -59,13 +56,16 @@ const getTrashColor = (device) => {
 div.device-wrapper {
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  height: 30%;
+  width: 100%;
+  height: 100%;
+  color: white;
+  padding: 0.2em;
   border-radius: 0.5em;
-  box-shadow: #1a262b 0px 0px 8px;
-  background: #e0e0e0;
+  box-shadow: #000 0px 0px 8px;
+  background: #1a262b;
 }
 
 .icon {

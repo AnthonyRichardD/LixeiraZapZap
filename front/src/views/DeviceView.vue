@@ -1,6 +1,6 @@
 <script setup>
 import router from '../router'
-import { ClockIcon, MapPinIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { ClockIcon, MapPinIcon, TrashIcon, Battery100Icon } from '@heroicons/vue/24/outline'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -22,15 +22,26 @@ const db = getFirestore(firebaseApp);
 
 const device = ref({volume:0});
 
-
-
 const unsub = onSnapshot(doc(db, "Devices", `${router.currentRoute.value.params.id}`), (doc) => {
   console.log("Current data: ", doc.data());
   device.value = doc.data()
   device.value.volume = 100 - doc.data().volume
-
-
 });
+
+function getTrashColor (device) {
+  if (device) {
+    const volume = device.volume;
+    const color = ref("");
+    if (volume < 25) {
+      color.value = 'green';
+    }else if (volume > 50 && volume != 90){
+      color.value = 'orange';
+    }else{
+      color.value = 'red';
+    }
+    return color.value
+  }
+}
 
 </script>
 
@@ -57,15 +68,21 @@ const unsub = onSnapshot(doc(db, "Devices", `${router.currentRoute.value.params.
         </div>
       </div>
       <div class="device-data">
-
+        <div class="icon-wrapper">
+          <Battery100Icon class="device-icon" />
+        </div>
+        <div class="info-wrapper">
+          <span class="title">Bateria</span>
+          <p>100%</p>
+        </div>
       </div>
     </div>
     <div class="vol">
       <h1>Capacidade {{ device.volume }}%</h1>
-      <div v-if="device.volume >= 90" class="btn">
-        Limite Atingido Solicitando Coleta.
+      <TrashIcon :style="{color: getTrashColor(device)}"/>
+      <div v-if="device.volume >= 90" class="warn">
+        <span class="warn-text">Limite Atingido. Solicitando Coleta.</span>
       </div>
-      <TrashIcon style="color:#1a262b"/>
     </div>
     <div class="progress">
       <div class="progress-bar" :style="{ height: device.volume + '%' }"></div>
@@ -93,6 +110,7 @@ div.vol h1 {
   position: relative;
   width: 10%;
   background-color: #ccc;
+  box-shadow: 2px 4px 5px #0000007c;
 }
 
 .progress-bar {
@@ -136,20 +154,24 @@ div.device-data {
   width: 100%;
   height: 33%;
   color: white;
-  /* border: solid 1px; */
   background: #1a262b;
-
+  border-radius: 0.1em;
 }
 .device-icon {
   height: 100%;
 }
-.btn{
+.warn{
   text-align: center;
   color: #1a262b;
   font-weight: 700;
-  width: 50%;
+  width: 100%;
   padding: 0.3em;
   border-radius: 0.2em;
   font-size: 1em;
+}
+
+.warn-text{
+  width: 100%;
+  font-size: 2em;
 }
 </style>
