@@ -2,16 +2,15 @@ import mqtt from 'mqtt';
 import { setDeviceData, getDevice } from './dataBase.js';
 import { sendMessage } from './telegram.js';
 const client = mqtt.connect('https://broker.hivemq.com:1883'); // Substitua 'localhost' pelo endereço do seu broker MQTT, se necessário
-const topics = ['Devices/Device1','Devices/Device2']
+const topics = ['Devices/Device1','Devices/Device2','Devices/Device3']
 
 function getTime(){
-    let data = new Date();  
-    let hora = data.getHours();
-    let min = data.getMinutes();
-    let sec = data.getSeconds();
+  let data = new Date();  
+  let hora = data.getHours();
+  let min = data.getMinutes();
+  let sec = data.getSeconds();
   
-  return = `${hora}:${min}:${sec}`
-
+  return  `${hora}:${min}:${sec}`
 }
 
 client.on('connect', () => {
@@ -34,7 +33,7 @@ client.on('message', (topic, message) => {
     sendMessage(`A lixeira localizada no ${device.local} atingiu sua capacidade máxima por volta de ${device.horario} e precisa ser esvaziada o mais rápido possível.`);
   } 
   setDeviceData(device)
-  console.log(`Mensagem no topico [${topic}]: ${message}`);
+  console.log(device);
 });
 
 // Lidando com a desconexão
