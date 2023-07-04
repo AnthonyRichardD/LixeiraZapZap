@@ -10,15 +10,6 @@ client.on('connect', () => {
   const interval = setInterval(() => {
     devices.forEach((device)=>{
       const lixo = Math.floor(Math.random() * 5) + 1;
-      let data = new Date();
-      
-      let hora = data.getHours();
-      let min = data.getMinutes();
-      let sec = data.getSeconds();
-
-      device.horario = `${hora}:${min}:${sec}`
-      device.volume -= lixo;
-
       
       if (device.volume <= 10) {
         device.volume = 10
