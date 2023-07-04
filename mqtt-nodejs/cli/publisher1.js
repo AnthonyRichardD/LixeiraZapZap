@@ -10,6 +10,7 @@ client.on('connect', () => {
   const interval = setInterval(() => {
     devices.forEach((device)=>{
       const lixo = Math.floor(Math.random() * 5) + 1;
+      device.volume -= lixo;
       
       if (device.volume <= 10) {
         device.volume = 10
